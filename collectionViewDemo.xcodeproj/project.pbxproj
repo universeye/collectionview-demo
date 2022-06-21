@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF8AA0B3286056D1000F72A1 /* AsyncAwaitPrac.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AA0B2286056D1000F72A1 /* AsyncAwaitPrac.swift */; };
+		BF8AA0B7286076B1000F72A1 /* FilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AA0B6286076B1000F72A1 /* FilterVC.swift */; };
+		BF8AA0B928607722000F72A1 /* FilterFloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AA0B828607722000F72A1 /* FilterFloatingButton.swift */; };
+		BFAFD719285AE54000C24188 /* TableOfContentsSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAFD718285AE54000C24188 /* TableOfContentsSelector.swift */; };
 		BFCE4D0928536F1D0041BE01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCE4D0828536F1D0041BE01 /* AppDelegate.swift */; };
 		BFCE4D0B28536F1D0041BE01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCE4D0A28536F1D0041BE01 /* SceneDelegate.swift */; };
 		BFCE4D0D28536F1D0041BE01 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCE4D0C28536F1D0041BE01 /* ViewController.swift */; };
@@ -16,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF8AA0B2286056D1000F72A1 /* AsyncAwaitPrac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAwaitPrac.swift; sourceTree = "<group>"; };
+		BF8AA0B6286076B1000F72A1 /* FilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
+		BF8AA0B828607722000F72A1 /* FilterFloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterFloatingButton.swift; sourceTree = "<group>"; };
+		BFAFD718285AE54000C24188 /* TableOfContentsSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableOfContentsSelector.swift; sourceTree = "<group>"; };
 		BFCE4D0528536F1D0041BE01 /* collectionViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = collectionViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFCE4D0828536F1D0041BE01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFCE4D0A28536F1D0041BE01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +67,10 @@
 				BFCE4D0828536F1D0041BE01 /* AppDelegate.swift */,
 				BFCE4D0A28536F1D0041BE01 /* SceneDelegate.swift */,
 				BFCE4D0C28536F1D0041BE01 /* ViewController.swift */,
+				BF8AA0B2286056D1000F72A1 /* AsyncAwaitPrac.swift */,
+				BFAFD718285AE54000C24188 /* TableOfContentsSelector.swift */,
+				BF8AA0B828607722000F72A1 /* FilterFloatingButton.swift */,
+				BF8AA0B6286076B1000F72A1 /* FilterVC.swift */,
 				BFCE4D0E28536F1D0041BE01 /* Main.storyboard */,
 				BFCE4D1128536F210041BE01 /* Assets.xcassets */,
 				BFCE4D1328536F210041BE01 /* LaunchScreen.storyboard */,
@@ -138,8 +150,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF8AA0B7286076B1000F72A1 /* FilterVC.swift in Sources */,
+				BFAFD719285AE54000C24188 /* TableOfContentsSelector.swift in Sources */,
 				BFCE4D0D28536F1D0041BE01 /* ViewController.swift in Sources */,
+				BF8AA0B3286056D1000F72A1 /* AsyncAwaitPrac.swift in Sources */,
 				BFCE4D0928536F1D0041BE01 /* AppDelegate.swift in Sources */,
+				BF8AA0B928607722000F72A1 /* FilterFloatingButton.swift in Sources */,
 				BFCE4D0B28536F1D0041BE01 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
