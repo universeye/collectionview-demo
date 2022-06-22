@@ -6,6 +6,7 @@
 //test
 
 import UIKit
+import Lottie
 
 struct Group {
     let title: String
@@ -43,11 +44,25 @@ class ViewController: UIViewController {
         return uiview
     }()
     
+    private var animationView: AnimationView?
+    private var doneView: AnimationView?
+    
     private let okButton: UIButton = {
         let bt = UIButton(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
         bt.setImage(UIImage(systemName: "xmark"), for: .normal)
         bt.tintColor = .black
         bt.layer.cornerRadius = 20
+        return bt
+    }()
+    
+    private let downloadButton: UIButton = {
+        let bt = UIButton(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        bt.setTitle("Download", for: .normal)
+        bt.backgroundColor = .link
+        bt.setTitleColor(.white, for: .normal)
+        bt.translatesAutoresizingMaskIntoConstraints = false
+        bt.layer.cornerRadius = 10
+        bt.alpha = 0
         return bt
     }()
     
@@ -94,6 +109,7 @@ class ViewController: UIViewController {
         
         configureFilterButton()
         configureContainerView()
+        configureDownloadButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -138,10 +154,7 @@ class ViewController: UIViewController {
     }
     
     @objc private func filterButtonTapped() {
-        UIView.transition(with: containerView, duration: 0.4,
-                          options: .transitionCrossDissolve,
-                          animations: {
-            
+        UIView.transition(with: containerView, duration: 0.4, options: .transitionCrossDissolve) {
             self.containerView.isHidden = false
             self.containerView.frame = CGRect(x: 95, y: 322, width: 200, height: 200)
             
@@ -150,15 +163,19 @@ class ViewController: UIViewController {
             
             self.okButton.isHidden = false
             self.dimView.alpha = 1
-            
-        })
+        } completion: { [weak self]_ in
+            guard let self = self else { return }
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
+                self.downloadButton.alpha = 1
+            } , completion: nil)
+        }
     }
     
     private func configureContainerView() {
         view.addSubview(containerView)
         
         containerView.addSubview(okButton)
-        okButton.convert(containerView.center, from: self.view)
+        
         okButton.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
         
         containerView.isHidden = true
@@ -185,16 +202,85 @@ class ViewController: UIViewController {
                           animations: {
             
             self.containerView.frame = CGRect(x: self.view.frame.size.width - 80, y: self.view.frame.size.height - 100, width: 0, height: 0)
-            //            self.containerView.center = self.view.center
             self.dimView.alpha = 0
+            self.downloadButton.alpha = 0
             self.filterButton.frame = CGRect(x: self.view.frame.size.width - 80, y: self.view.frame.size.height - 100, width: 50, height: 50)
             self.filterButton.alpha = 1
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 self.containerView.isHidden = true
                 
             }
         })
         
+    }
+    
+    private func configureDownloadButton() {
+        containerView.addSubview(downloadButton)
+        downloadButton.addTarget(self, action: #selector(downloadButtonTapped), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            downloadButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            downloadButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant:  -10),
+            downloadButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
+            downloadButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
+    @objc private func downloadButtonTapped() {
+        animationView = .init(name: "12805-lottiefiles-sticker-0")
+        animationView!.frame = CGRect(x: 50, y: 50 , width: 100, height: 100)
+        animationView!.contentMode = .scaleAspectFit
+        animationView!.loopMode = .loop
+        animationView!.animationSpeed = 0.8
+        animationView!.alpha = 0
+        
+        
+        UIView.transition(with: self.downloadButton, duration: 0.5,
+                          options: UIView.AnimationOptions.transitionFlipFromTop,
+                          animations: {
+            
+            self.downloadButton.setTitle("Just a second...", for: .normal)
+            self.downloadButton.titleLabel?.font =  UIFont(name: "Fascinate-Regular", size: 20)
+            self.downloadButton.backgroundColor = .clear
+            self.downloadButton.setTitleColor(.systemGray, for: .normal)
+        })
+        
+        
+        
+        downloadButton.removeTarget(self, action: #selector(downloadButtonTapped), for: .touchUpInside)
+        containerView.addSubview(animationView!)
+        
+        UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .transitionCrossDissolve, animations: {
+            self.animationView!.alpha = 1
+        }, completion: nil)
+        animationView!.play()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.animationView!.removeFromSuperview()
+            self.configureLottieLoadingAni()
+        }
+    }
+    
+    private func configureLottieLoadingAni() {
+        doneView = .init(name: "50465-done")
+        doneView!.frame = CGRect(x: 50, y: 50 , width: 100, height: 100)
+        doneView!.contentMode = .scaleAspectFit
+        doneView!.loopMode = .playOnce
+        doneView!.animationSpeed = 0.5
+        containerView.addSubview(doneView!)
+        downloadButton.setTitle("Done!", for: .normal)
+        downloadButton.backgroundColor = .clear
+        downloadButton.setTitleColor(.systemGray, for: .normal)
+        
+        doneView?.play(completion: { [weak self]_ in
+            guard let self = self else { return }
+            self.okButtonTapped()
+            self.downloadButton.addTarget(self, action: #selector(self.downloadButtonTapped), for: .touchUpInside)
+            self.downloadButton.setTitle("Download", for: .normal)
+            self.downloadButton.backgroundColor = .link
+            self.downloadButton.setTitleColor(.white, for: .normal)
+            self.containerView.addSubview(self.downloadButton)
+            self.doneView?.removeFromSuperview()
+        })
     }
     
     @objc func handler(gesture: UIPanGestureRecognizer){
