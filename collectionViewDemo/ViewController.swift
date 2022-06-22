@@ -200,7 +200,10 @@ class ViewController: UIViewController {
     @objc func handler(gesture: UIPanGestureRecognizer){
         let location = gesture.location(in: self.view)
         let draggedView = gesture.view
-        draggedView?.center = location
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
+            draggedView?.center = location
+        }, completion: nil)
         
         if gesture.state == .ended {
             if self.containerView.frame.midY > self.view.layer.frame.height / 2 {
